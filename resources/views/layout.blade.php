@@ -10,6 +10,24 @@
       * {
         font-family: Roboto, Arial;
       }
+      .table-centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      table {
+        width: 50%;
+        text-align: left;
+        border-spacing: 0;
+      }
+      th, td {
+        padding: 5px 10px;
+        border: 1px solid gray;
+      }
+      th {
+        background-color: rgba(16, 83, 160, 0.795);
+        color: white; 
+      }
       .navbar{
         display: flex;
         flex-direction: row;

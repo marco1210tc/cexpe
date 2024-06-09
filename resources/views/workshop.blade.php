@@ -10,9 +10,9 @@
         <li> {{ $item['item'] }} </li>
       @endforeach
     </ul>
-      @else
-        <h2> No existen elementos </h2>
-      @endif
+  @else
+    <h2> No existen elementos </h2>
+  @endif
 
 
 @endsection
