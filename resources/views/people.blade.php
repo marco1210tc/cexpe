@@ -2,18 +2,25 @@
 
 @section('title', 'Personas')
 
+<style>
+  .btn {
+  
+  }
+</style>
+
+
 @section('content')
 <h1>Personas</h1>
 
-<div style="width: 100%; margin: 25px; text-align: center">
+<div style="width: 100%; margin: 25px; text-align: center;">
   <span> &#x271A; </span>
-  <a href="{{ route('people.create') }}" > Agregar nueva persona </a>
+  <a class="btn btn-add" href="{{ route('people.create') }}" > Agregar nueva persona </a>
 </div>
 
 <div class="table-centered">
   <table>
     <thead> 
-      <tr> <th>Nombre</th> <th>Apellido</th> <th>Sueldo</th> <th>Direccion</th> <th>Codigo</th> <th>Accion</th> </tr>
+      <tr> <th>Nombre</th> <th>Apellido</th> <th>Sueldo</th> <th>Direccion</th> <th>Estado</th> <th>Codigo</th> <th>Accion</th> </tr>
     </thead> 
     <tbody>
     @if ($people)
@@ -23,8 +30,14 @@
           <td> {{ $person->cPerApellido }}</td>
           <td> {{$person->nPerSueldo}} </td>
           <td>{{$person->cPerDireccion}} </td>
+          <td>{{$person->nPerEstado}} </td>
           <td> <a href="{{ route('people.show', $person) }}"> {{ $person->nPerCodigo }} </a></td>
-          <td> <a href="#"> Editar | Borrar </a></td>
+          <td> <a class="btn btn-edit" href=" {{ route('people.edit', $person) }}"> Editar  </a>
+            <form action="{{ route('people.destroy', $person) }}" method="POST">
+            @csrf @method('DELETE')
+              <button class="btn btn-delete"> Eliminar </button> 
+            </form>
+          </td>
         </tr>
       @endforeach
     </tbody>

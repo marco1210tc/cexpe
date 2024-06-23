@@ -21,9 +21,10 @@ class PeopleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Person $person)
     {
-        return view('create');
+
+        return view('create', ['person' => new Person]);
     }
 
     /**
@@ -57,22 +58,26 @@ class PeopleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('edit', ['person' => Person::find($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CreatePersonRequest $request, string $id)
     {
-        //
+        $person = Person::find($id);
+        $person->update($request->validated());
+
+        return redirect()->route('people.show', $person);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Person $person)
     {
-        //
+        $person->delete();
+        return redirect()->route('people.index');        
     }
 }

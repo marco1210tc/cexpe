@@ -99,6 +99,14 @@
       .btn-send:hover {
         background-color: rgba(12, 67, 129, 0.795);
       }
+      .btn-add {
+        background-color: #0c8011;
+        color: white;
+        transition: 0.5s;
+      }
+      .btn-add:hover {
+        background-color:  #074e31;
+      }
 
     </style>
   </head>
