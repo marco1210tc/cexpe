@@ -32,11 +32,17 @@
           <td>{{$person->cPerDireccion}} </td>
           <td>{{$person->nPerEstado}} </td>
           <td> <a href="{{ route('people.show', $person) }}"> {{ $person->nPerCodigo }} </a></td>
-          <td> <a class="btn btn-edit" href=" {{ route('people.edit', $person) }}"> Editar  </a>
-            <form action="{{ route('people.destroy', $person) }}" method="POST">
-            @csrf @method('DELETE')
-              <button class="btn btn-delete"> Eliminar </button> 
-            </form>
+          <td > 
+            
+            <div style="display: flex; justify-content: space-evenly; align-items: center;">
+              <a class="btn btn-edit" href=" {{ route('people.edit', $person) }}"> Editar  </a>
+              
+              <form style="margin:0;" action="{{ route('people.destroy', $person) }}" method="POST">
+                @csrf @method('DELETE')
+                <button type='submit' class="btn btn-delete"> Eliminar </button> 
+              </form>
+  
+            </div>
           </td>
         </tr>
       @endforeach

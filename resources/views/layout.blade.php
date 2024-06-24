@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
       * {
         font-family: Roboto, Arial;
         /* box-sizing: border-box; */
+        /* border: 1px solid black; para testeo solamente */
       }
 
       .table-centered {
@@ -89,7 +90,10 @@
       .btn {
         padding: 8px;
         border: none;
+        border-radius: 5px;
         cursor: pointer;
+        box-shadow: 1px 1px 1px gray;
+        text-decoration: none;
       }
       .btn-send {
         background-color: #162e49;
@@ -106,6 +110,15 @@
       }
       .btn-add:hover {
         background-color:  #074e31;
+      }
+      .btn-edit {
+        background-color:  rgb(12, 67, 129);
+        color:white;
+        text-decoration: none;
+      }
+      .btn-delete {
+        background-color:  #df1111;
+        color: white;
       }
 
     </style>
