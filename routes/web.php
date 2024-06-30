@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::view('contacto', 'contact')->name('contact');
+Route::post('contacto', 'App\Http\Controllers\ContactController@store')->name('contact.store');
+
 Route::view('/', 'home')->name('home');
 Route::get('personas', 'App\Http\Controllers\PeopleController@index')->name('people.index');
 Route::get('personas/{id}', 'App\Http\Controllers\PeopleController@show')->name('people.show')->where('id', '[0-9]+');
