@@ -13,7 +13,7 @@
       <div class="email-content">
         <div class="email-data">
           <div class="form-group">
-            <b>NOmbre: </b> {{ $email['cContNombre'] }}
+            <b>Nombre: </b> {{ $email['cContNombre'] }}
           </div>
           <div class="form-group">
             <b>Correo: </b> {{ $email['cContEmail' ] }}

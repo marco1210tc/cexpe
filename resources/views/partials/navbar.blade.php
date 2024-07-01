@@ -5,6 +5,6 @@
  <a class="nav-btn {{setActive('people.index') ?  : setActive('people.show')}} " 
     href="{{route('people.index')}}"> Personas </a>
 
-  <a class="nav-btn {{setActive('contact') }}" href="contacto"> Contacto </a>
+  <a class="nav-btn {{setActive('contact') }}" href="{{route('contact')}}"> Contacto </a>
 
 </nav>
