@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
 
+use App\Http\Requests\CreateEmailRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PostedEmail;
+use App\Models\Email;
 
 class ContactController extends Controller
 {
@@ -28,20 +30,11 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(CreateEmailRequest $request)
     {
-        $email = request()->validate([
-            'cContNombre' => 'required',
-            'cContEmail' => 'required',
-            'cContAsunto' => 'required',
-            'cContMensaje' => 'required',
-        ], [
-            'cContNombre.required' => 'Un nombre es requerido',
-            'cContrEmail.required' => 'Ingrese el email',
-            'cContAsunto.required' => 'Ingrese el asunto',
-            'cContMensaje.required' => 'Escriba un mensaje', 
-        ]);
-        Mail::to('martold1210@gmail.com')->send(new PostedEmail($email));
+        // $email = request()->validate();
+        Email::create($request->validated());
+        Mail::to('martold1210@gmail.com')->send(new PostedEmail($request));
         // return $email; //verificando la variable
         return 'Mensaje enviado';
     }
