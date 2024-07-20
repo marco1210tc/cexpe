@@ -1,7 +1,7 @@
 * {
   font-family: Roboto, Arial;
-  /* box-sizing: border-box; */
-  /* border: 1px solid black; para testeo solamente */
+	/*box-sizing: border-box; */
+	/*border: 1px solid red; //only for testing purposes*/ 
 }
 .active {
   background-color: #0b3769;
@@ -91,6 +91,10 @@
   padding: 3px 3px;
   width: 100%;
 }
+.login-register-block a {
+  margin: 0px 7px;
+}
+
 .table-centered {
   display: flex;
   justify-content: center;

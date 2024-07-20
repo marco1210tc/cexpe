@@ -36,7 +36,8 @@ class ContactController extends Controller
         Email::create($request->validated());
         Mail::to('martold1210@gmail.com')->send(new PostedEmail($request));
         // return $email; //verificando la variable
-        return 'Mensaje enviado';
+        // return 'Mensaje enviado';
+        return back()->with('state', 'Gracias por comunicarte con nosotros, responderemos en breve.');
     }
 
     /**

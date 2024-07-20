@@ -1,6 +1,13 @@
 @extends('layout')
 
-@section('title', 'Inicio')
+@section('title', 'Home')
+
 @section('content')
-  <h1> Inicio </h1>
+    @guest
+        @include('home-guest')
+    @else
+        <h2> Inicio </h2>
+        {{ auth()->user()->name }}     
+        {{-- @include('home-auth') --}}
+    @endguest
 @endsection

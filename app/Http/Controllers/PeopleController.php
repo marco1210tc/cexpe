@@ -12,6 +12,12 @@ class PeopleController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
     public function index()
     {
         $people = Person::get();
@@ -42,7 +48,7 @@ class PeopleController extends Controller
         //     'nPerEstado' => request('state'),
         // ]);
         Person::create($request->validated());
-        return redirect(route('people.index'));
+        return redirect(route('people.index'))->with('state', 'El usuario fue agregado existosamente.');
     }
 
     /**
@@ -69,7 +75,7 @@ class PeopleController extends Controller
         $person = Person::find($id);
         $person->update($request->validated());
 
-        return redirect()->route('people.show', $person);
+        return redirect()->route('people.show', $person)->with('state', 'Datos de usuario actualizados correctamente.');
     }
 
     /**
@@ -79,6 +85,6 @@ class PeopleController extends Controller
     {
         $person = Person::find($id);
         $person->delete();
-        return redirect()->route('people.index');        
+        return redirect()->route('people.index')->with('state', 'El usuario se eliminó ccrrectamente.');        
     }
 }
