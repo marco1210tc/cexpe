@@ -5,7 +5,7 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="form">
+            <div class="row mb-3" style="margin-top: 65px">
                 <div style="width: 100%; text-align: center">
                     <h2> Login </h2>
                 </div>

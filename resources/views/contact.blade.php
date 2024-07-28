@@ -2,14 +2,20 @@
 
 @section('title', 'Contacto')
 @section('content')
+
+<div style="margin-top: 15px; display: flex; justify-content: center">
   <h1> Contacto </h1>
+</div>
+
 
   <div class="form-section">
+
     @if (session('state'))
       {{ session('state') }}
     @else
       <form action="{{ route('contact.store') }}" method="POST">
         @csrf
+        
         <div class="form">
           <div class="form-group">
             <label for="cContNombre"> Nombre: </label>

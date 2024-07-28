@@ -22,6 +22,10 @@ class CreatePersonRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // 'cPerImage' => [$this->route('people.edit') ? 'nullable' : 'required', 
+            //     'mimes: jpg, png',
+            //     'max: 2000'],
+            'cPerImage' => 'required', 
             'cPerApellido' => 'required',
             'cPerNombre' => 'required',             
             'cPerDireccion' => 'required',          
@@ -34,6 +38,9 @@ class CreatePersonRequest extends FormRequest
 
     public function messages() {
         return [
+            'cPerImage' => 'Ingrese una foto',
+            // 'cPerImage.mimes' => 'Ingrese un formato válido:jpg,png',
+            // 'cPerImage.max' => 'Archivo demasiado grande',
             'cPerApellido' => 'Campo obligatorio', 
             'cPerNombre' => 'Campo obligatorio',             
             'cPerDireccion' => 'Campo obligatorio',          

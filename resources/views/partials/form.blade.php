@@ -1,5 +1,15 @@
 @csrf
-<div class="form">
+
+<div class="form" style="height: fit-content">
+
+  <div class="form-group">
+      <label for="customFile"> Seleccione archivo </label>
+    <div style="border: 1px black solid">
+      <input type="file" name="cPerImage" id="customFile">
+    </div>
+    {{ $errors->first('cPerImage') }}
+  </div>
+
   <div class="form-group">
     <label for="cPerApellido"> Apellido: </label>
     <input type="text" name="cPerApellido" value="{{ old('cPerApellido', $person->cPerApellido) }}">

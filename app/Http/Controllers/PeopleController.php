@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Person;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreatePersonRequest;
 
 class PeopleController extends Controller
@@ -20,7 +21,8 @@ class PeopleController extends Controller
 
     public function index()
     {
-        $people = Person::get();
+        // $people = Person::get();
+        $people = Person::paginate(5);
         return view('people', compact('people'));
     }
 
@@ -29,7 +31,6 @@ class PeopleController extends Controller
      */
     public function create(Person $person)
     {
-
         return view('create', ['person' => new Person]);
     }
 
@@ -38,16 +39,12 @@ class PeopleController extends Controller
      */
     public function store(CreatePersonRequest $request)
     {
-        // Person::create([
-        //     'cPerApellido' => request('lastname'),
-        //     'cPerNombre' => request('name'),
-        //     'cPerDireccion' => request('address'),
-        //     'dPerFecNac' => request('birthday'),
-        //     'nPerEdad' => request('age'),
-        //     'nPerSueldo' => request('salary'),
-        //     'nPerEstado' => request('state'),
-        // ]);
-        Person::create($request->validated());
+        // Person::create($request->validated());
+        $person = new Person($request->validated());
+        $person->cPerImage = $request->file('cPerImage')->store('images'); 
+        //dd($person->cPerImage);
+        $person->save();
+        //return dd($request->validated());
         return redirect(route('people.index'))->with('state', 'El usuario fue agregado existosamente.');
     }
 
@@ -70,12 +67,43 @@ class PeopleController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(CreatePersonRequest $request, string $id)
+    // {
+    //     $person = Person::find($id);
+    //     if ($request->hasFile('cPerImage')) {
+    //         Storage::delete($person->cPerImage);
+    //         $person->fill( $request->validated() );
+    //         $person->cPerImage = $request->file('cPerImage')->store('images');
+    //         $person->save();
+    //     } else {
+    //         $person->update( array_filter( $request->validated() ) );
+    //     }
+
+    //     return redirect()->route('people.show', $person)
+    //         ->with('state', 'Datos de usuario actualizados correctamente.');
+    // }
+
     public function update(CreatePersonRequest $request, string $id)
     {
         $person = Person::find($id);
-        $person->update($request->validated());
 
-        return redirect()->route('people.show', $person)->with('state', 'Datos de usuario actualizados correctamente.');
+        // Verifica si el archivo de imagen está presente en el request
+        if ($request->hasFile('cPerImage')) {
+            // Elimina la imagen anterior si existe
+            if ($person->cPerImage && Storage::exists($person->cPerImage)) {
+                Storage::delete($person->cPerImage);
+            }
+            
+            // Sube y guarda la nueva imagen
+            $person->cPerImage = $request->file('cPerImage')->store('images');
+        }
+
+        // Actualiza el resto de los datos
+        $person->fill($request->validated());
+        $person->save();
+
+        return redirect()->route('people.show', $person)
+            ->with('state', 'Datos de usuario actualizados correctamente.');
     }
 
     /**
@@ -84,7 +112,8 @@ class PeopleController extends Controller
     public function destroy(string $id)
     {
         $person = Person::find($id);
+        Storage::delete($person->cPerImage);
         $person->delete();
-        return redirect()->route('people.index')->with('state', 'El usuario se eliminó ccrrectamente.');        
+        return redirect()->route('people.index')->with('state', 'El usuario se eliminó correctamente.');        
     }
 }
