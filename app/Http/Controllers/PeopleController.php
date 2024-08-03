@@ -8,6 +8,9 @@ use App\Models\Person;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\CreatePersonRequest;
 
+use Intervention\Image\Laravel\Facades\Image;
+use App\Events\PeopleSaved;
+
 class PeopleController extends Controller
 {
     /**
@@ -45,6 +48,18 @@ class PeopleController extends Controller
         //dd($person->cPerImage);
         $person->save();
         //return dd($request->validated());
+
+        //optimizar la imagen guardada
+        $image = Image::read(Storage::get($person->cPerImage))
+            ->scale(width: 600)
+            ->reduceColors(255)
+            ->encode();
+
+        //sobreescribimos la imagen
+        Storage::put($person->cPerImage, (string) $image);
+        //disparar evento
+        PeopleSaved::dispatch($person);
+
         return redirect(route('people.index'))->with('state', 'El usuario fue agregado existosamente.');
     }
 
@@ -101,6 +116,17 @@ class PeopleController extends Controller
         // Actualiza el resto de los datos
         $person->fill($request->validated());
         $person->save();
+
+        //optimizar la imagen guardada
+        $image = Image::read(Storage::get($person->cPerImage))
+            ->scale(width: 600)
+            ->reduceColors(255)
+            ->encode();
+
+        //sobreescribimos la imagen
+        Storage::put($person->cPerImage, (string) $image);
+        //disparar evento
+        PeopleSaved::dispatch($person);
 
         return redirect()->route('people.show', $person)
             ->with('state', 'Datos de usuario actualizados correctamente.');
