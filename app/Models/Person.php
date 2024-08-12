@@ -20,4 +20,9 @@ class Person extends Model
         'nPerSueldo',
         'nPerEstado',
     ];
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\CreatePersonRequest;
 
 use Intervention\Image\Laravel\Facades\Image;
 use App\Events\PeopleSaved;
+use App\Models\Departamento;
 
 class PeopleController extends Controller
 {
@@ -25,7 +26,7 @@ class PeopleController extends Controller
     public function index()
     {
         // $people = Person::get();
-        $people = Person::paginate(5);
+        $people = Person::with('departamento')->latest()->paginate(5);
         return view('people', compact('people'));
     }
 
@@ -34,7 +35,12 @@ class PeopleController extends Controller
      */
     public function create(Person $person)
     {
-        return view('create', ['person' => new Person]);
+        return view('create', [
+            'person' => new Person,	
+            'departamentos' => Departamento::pluck('nombre', 'id'),
+        ]);
+
+        // return view('create', ['person' => new Person]);
     }
 
     /**
@@ -59,7 +65,7 @@ class PeopleController extends Controller
         Storage::put($person->cPerImage, (string) $image);
         //disparar evento
         PeopleSaved::dispatch($person);
-
+        // return(dd($person));
         return redirect(route('people.index'))->with('state', 'El usuario fue agregado existosamente.');
     }
 
@@ -76,7 +82,11 @@ class PeopleController extends Controller
      */
     public function edit(string $id)
     {
-        return view('edit', ['person' => Person::find($id)]);
+        return view('edit', [
+            'person' => Person::find($id),
+            'departamentos' => Departamento::pluck('nombre', 'id'),
+        ]);
+        // return view('edit', ['person' => Person::find($id)]);
     }
 
     /**

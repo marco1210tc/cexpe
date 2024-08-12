@@ -6,7 +6,23 @@
 
 @section('content')
 
-  <h1> Personas </h1>
+  @isset($departamento)
+
+  <div>
+    <div class="display-4 mb-0">
+        <h1>{{ $departamento->nombre }}</h1>
+    </div>
+
+    <span class="mb-2">
+        <a href="{{ route('people.index') }}"> Regresar a personas</a>
+    </span>
+  </div>
+  
+  @else
+
+    <h1 class="mt-4 ml-8 text-xl">Personas</h1>
+      
+  @endisset
 
   @auth
 
@@ -26,7 +42,9 @@
           <th>Apellido</th> 
           <th>Sueldo</th> 
           <th>Direccion</th> 
-          <th>Estado</th> 
+
+          <th>Departamento</th> 
+
           <th>Codigo</th> 
           @auth
           <th>Accion</th> 
@@ -51,7 +69,20 @@
             <td> {{ $person->cPerApellido }}</td>
             <td> {{$person->nPerSueldo}} </td>
             <td>{{$person->cPerDireccion}} </td>
-            <td>{{$person->nPerEstado}} </td>
+
+            @if ($person->departamento_id)
+              <td>
+                <a class="rounded-lg text-white text-sm bg-blue-600 p-1" 
+                  href="{{ route('people.index', $person->departamento) }}">
+                  {{ $person->departamento->nombre }}
+                </a>
+              </td>
+            @else
+              <td>
+                No asignado
+              </td>  
+            @endif
+
             <td> {{ $person->nPerCodigo }} </td>
 
             @auth

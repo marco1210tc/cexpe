@@ -32,7 +32,11 @@ class CreatePersonRequest extends FormRequest
             'dPerFecNac' => 'required',              
             'nPerEdad' => 'required',              
             'nPerSueldo' => 'required',              
-            'nPerEstado' => 'required',              
+            'nPerEstado' => 'required',
+            'departamento_id' => [
+                'required',
+                'exists:departamentos,id',
+            ],              
         ];
     }
 
@@ -41,13 +45,14 @@ class CreatePersonRequest extends FormRequest
             'cPerImage' => 'Ingrese una foto',
             // 'cPerImage.mimes' => 'Ingrese un formato válido:jpg,png',
             // 'cPerImage.max' => 'Archivo demasiado grande',
-            'cPerApellido' => 'Campo obligatorio', 
-            'cPerNombre' => 'Campo obligatorio',             
-            'cPerDireccion' => 'Campo obligatorio',          
-            'dPerFecNac' => 'Campo obligatorio',             
-            'nPerEdad' =>  'Campo obligatorio',             
-            'nPerSueldo' => 'Campo obligatorio',              
-            'nPerEstado' =>  'Campo obligatorio',   
+            'cPerApellido' => 'El campo cPerApellido es obligatorio',   
+            'cPerNombre' => 'El campo cPerNombre es obligatorio',            
+            'cPerDireccion' => 'El campo cPerDireccion es obligatorio',           
+            'dPerFecNac' => 'El campo dPerFecNac es obligatorio',               
+            'nPerEdad' =>  'El campo nPerEdad es obligatorio',              
+            'nPerSueldo' => 'El campo nPerSueldo es obligatorio',               
+            'nPerEstado' =>  'El campo nPerEstado es obligatorio',   
+            'departamento_id.required' => 'El campo departamento es obligatorio',
         ];
     }
 }

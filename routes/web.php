@@ -12,6 +12,8 @@ Route::post('contacto', 'App\Http\Controllers\ContactController@store')->name('c
 
 Route::resource('personas', PeopleController::class)->names('people');
 
+Route::get('departamentos/{departamento}', 'App\Http\Controllers\DepartamentoController@show')->name('departamentos.show');
+
 // Route::view('/', 'home')->name('home');
 // Route::get('personas', 'App\Http\Controllers\PeopleController@index')->name('people.index');
 // Route::get('personas/{id}', 'App\Http\Controllers\PeopleController@show')->name('people.show')->where('id', '[0-9]+');
